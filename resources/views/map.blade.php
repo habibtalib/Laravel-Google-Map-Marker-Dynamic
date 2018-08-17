@@ -82,23 +82,12 @@
     var dicon = "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
     var ricon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
 
-    navigator.geolocation.getCurrentPosition(showPosition);
 
-    function showPosition(position) {
-    	$("#lat").val(position.coords.latitude);
-    	$("#long").val(position.coords.longitude);
-
-    	lastMarker = map.addMarker({
-		    lat: $("#lat").val(),
-	        lng: $("#long").val(),
-	        icon:ricon,
-	        animation:google.maps.Animation.BOUNCE
-		  });
-	}
 
     $(document).ready(function(){
       map = new GMaps({
         el: '#map',
+    
         lat: 21.1591425,
         lng: 72.6822088,
         zoom: 7,
@@ -122,6 +111,31 @@
         }
       });
 
+if (navigator.geolocation) {
+	    navigator.geolocation.getCurrentPosition(showPosition);
+
+	    function showPosition(position) {
+	    	$("#lat").val(position.coords.latitude);
+	    	$("#long").val(position.coords.longitude);
+
+	    	lastMarker = map.addMarker({
+			    lat: $("#lat").val(),
+		        lng: $("#long").val(),
+		        icon:ricon,
+		        animation:google.maps.Animation.BOUNCE
+			  });
+		}
+    }else{
+    	$("#lat").val('22.277266299999997');
+    	$("#long").val('70.7870138');
+
+    	lastMarker = map.addMarker({
+		    lat: $("#lat").val(),
+	        lng: $("#long").val(),
+	        icon:ricon,
+	        animation:google.maps.Animation.BOUNCE
+		  });
+    }
       
 
       // Initialize
